@@ -26,6 +26,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
+import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ThreadPoolExecutor;
 
@@ -37,6 +38,9 @@ import static com.lrpcn.quickdev.common.PageRequest.SORT_ORDER_ASC;
 @Service
 public class ChartServiceImpl extends ServiceImpl<ChartMapper, Chart>
         implements ChartService {
+
+    @Resource
+    private ChartMapper chartMapper;
 
     @Resource
     private AiManager aiManager;
@@ -64,6 +68,7 @@ public class ChartServiceImpl extends ServiceImpl<ChartMapper, Chart>
         wrapper.orderBy(SqlUtil.validSortField(sortField), StrUtil.equals(sortOrder, SORT_ORDER_ASC), sortField);
         return wrapper;
     }
+
 
     final long ONE_MB = 1024 * 1024L;
 
@@ -198,6 +203,18 @@ public class ChartServiceImpl extends ServiceImpl<ChartMapper, Chart>
         return biResponse;
     }
 
+    /**
+     * 查询分页ids
+     * @param current
+     * @param size
+     * @return
+     */
+    @Override
+    public List<Long> redisPage(int current, int size, String name) {
+        return chartMapper.selectPageIds(current, size,name);
+    }
+
+    @Override
     public boolean isJsonString(String str) {
         try {
             JSON.parseObject(str);

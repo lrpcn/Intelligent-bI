@@ -1,6 +1,5 @@
 package com.lrpcn.quickdev.aop;
 
-import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.date.StopWatch;
 import cn.hutool.core.util.IdUtil;
 import cn.hutool.core.util.StrUtil;
@@ -38,10 +37,6 @@ public class LogInterceptor {
         String requestId = IdUtil.fastSimpleUUID();
         String url = httpServletRequest.getRequestURI();
         Object[] args = point.getArgs();
-        for (Object o : args) {
-
-        }
-
         String reqParam = "[" + StrUtil.join(",", args) + "]";
         // 日志打印
         log.info("请求开始，请求ID: {}，请求路径: {}，ip: {} 请求参数: {}",

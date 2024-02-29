@@ -9,6 +9,8 @@ import com.lrpcn.quickdev.model.dto.chart.GenChartByAiRequest;
 import com.lrpcn.quickdev.model.vo.BiResponse;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.List;
+
 /**
 * @author Administrator
 * @description 针对表【chart(图表信息表)】的数据库操作Service
@@ -49,4 +51,6 @@ public interface ChartService extends IService<Chart> {
      * @return
      */
     BiResponse genChartByAiAsyncMq(MultipartFile multipartFile, GenChartByAiRequest request);
+
+    List<Long> redisPage(int current, int size,String name);
 }

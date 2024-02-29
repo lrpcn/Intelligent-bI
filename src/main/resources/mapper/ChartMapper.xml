@@ -27,4 +27,14 @@
         userId,createTime,updateTime,
         isDelete
     </sql>
+    <select id="selectPageIds" resultType="java.lang.Long">
+        select id from chart
+        <where>
+            <if test="name != null">
+                name like ${name}
+            </if>
+            limit ${current},${size}
+        </where>
+
+    </select>
 </mapper>
